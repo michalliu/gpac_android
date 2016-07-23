@@ -445,7 +445,6 @@ static void term_on_media_add(GF_ClientService *service, GF_Descriptor *media_de
 static void gather_buffer_level(GF_ObjectManager *odm, GF_ClientService *service, GF_NetworkCommand *com, u32 *max_buffer_time)
 {
 	u32 j, count = gf_list_count(odm->channels);
-    // iterate throught channels
 	for (j=0; j<count; j++) {
 		GF_Channel *ch = (GF_Channel *)gf_list_get(odm->channels, j);
 		if (ch->service != service) continue;

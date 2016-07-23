@@ -206,7 +206,6 @@ JNIEXPORT void JNICALL Java_com_gpac_Osmo4_GPACInstance_setGpacLogs(JNIEnv * env
 	jniLOGV("setDebug::end");
 }
 
-
 #ifdef __cplusplus
 }
 #endif

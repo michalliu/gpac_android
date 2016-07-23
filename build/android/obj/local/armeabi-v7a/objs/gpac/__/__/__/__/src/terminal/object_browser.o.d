@@ -1,10 +1,10 @@
-/Users/amberxiangli/Desktop/gpac-master/build/android/obj/local/armeabi-v7a/objs/gpac/__/__/__/__/src/terminal/object_browser.o: \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../src/terminal/object_browser.c \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/scene_manager.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/isomedia.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/tools.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/setup.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/config.h \
+/Users/amberxiangli/Desktop/gpac-backup/build/android/obj/local/armeabi-v7a/objs/gpac/__/__/__/__/src/terminal/object_browser.o: \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../src/terminal/object_browser.c \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/scene_manager.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/isomedia.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/tools.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/setup.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/config.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/stdio.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/cdefs.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/cdefs_elf.h \
@@ -37,50 +37,50 @@
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm/page.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/ctype.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/assert.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/version.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/revision.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/mpeg4_odf.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/list.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/bitstream.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/sync_layer.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/scenegraph_vrml.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/scenegraph.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/maths.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/version.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/revision.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/mpeg4_odf.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/list.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/bitstream.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/sync_layer.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/scenegraph_vrml.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/scenegraph.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/maths.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/math.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/constants.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/internal/terminal_dev.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/terminal.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/user.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/events.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/events_constants.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/module.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/config_file.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/color.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/modules/service.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/download.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/cache.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/modules/codec.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/modules/ipmp.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/mediaobject.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/scenegraph_svg.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/svg_types.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/path2d.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/thread.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/modules/term_ext.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/term_info.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../src/terminal/media_memory.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/nodes_mpeg4.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/nodes_svg.h
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/constants.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/internal/terminal_dev.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/terminal.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/user.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/events.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/events_constants.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/module.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/config_file.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/color.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/modules/service.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/download.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/cache.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/modules/codec.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/modules/ipmp.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/mediaobject.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/scenegraph_svg.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/svg_types.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/path2d.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/thread.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/modules/term_ext.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/term_info.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../src/terminal/media_memory.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/nodes_mpeg4.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/nodes_svg.h
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/scene_manager.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/scene_manager.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/isomedia.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/isomedia.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/tools.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/tools.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/setup.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/setup.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/config.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/config.h:
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/stdio.h:
 
@@ -146,70 +146,70 @@
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/assert.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/version.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/version.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/revision.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/revision.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/mpeg4_odf.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/mpeg4_odf.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/list.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/list.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/bitstream.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/bitstream.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/sync_layer.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/sync_layer.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/scenegraph_vrml.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/scenegraph_vrml.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/scenegraph.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/scenegraph.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/maths.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/maths.h:
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/math.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/constants.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/constants.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/internal/terminal_dev.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/internal/terminal_dev.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/terminal.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/terminal.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/user.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/user.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/events.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/events.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/events_constants.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/events_constants.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/module.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/module.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/config_file.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/config_file.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/color.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/color.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/modules/service.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/modules/service.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/download.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/download.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/cache.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/cache.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/modules/codec.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/modules/codec.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/modules/ipmp.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/modules/ipmp.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/mediaobject.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/mediaobject.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/scenegraph_svg.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/scenegraph_svg.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/svg_types.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/svg_types.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/path2d.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/path2d.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/thread.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/thread.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/modules/term_ext.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/modules/term_ext.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/term_info.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/term_info.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../src/terminal/media_memory.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../src/terminal/media_memory.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/nodes_mpeg4.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/nodes_mpeg4.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/nodes_svg.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/nodes_svg.h:

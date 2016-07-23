@@ -665,7 +665,7 @@ struct _es_channel
 	Bool BufferOn;
 	/*min level to trigger buffering on, max to trigger it off. */
 	u32 MinBuffer, MaxBuffer;
-	/*amount of buffered media - this is the DTS of the last received AU minus the object clock time, to make sure
+	/*amount of buffered media - this is the DTS of the last received AU minus the onject clock time, to make sure
 	we always have MaxBuffer ms ready for composition when resuming the clock*/
 	s32 BufferTime;
 	/*last received AU time - if exceeding a certain time and buffering is on, buffering is turned off.

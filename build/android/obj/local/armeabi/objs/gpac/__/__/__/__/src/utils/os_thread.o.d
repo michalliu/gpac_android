@@ -1,13 +1,13 @@
-/Users/amberxiangli/Desktop/gpac-master/build/android/obj/local/armeabi/objs/gpac/__/__/__/__/src/utils/os_thread.o: \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../src/utils/os_thread.c \
+/Users/amberxiangli/Desktop/gpac-backup/build/android/obj/local/armeabi/objs/gpac/__/__/__/__/src/utils/os_thread.o: \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../src/utils/os_thread.c \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/jni.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/cdefs.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/cdefs_elf.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/android/api-level.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/thread.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/tools.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/setup.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/config.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/thread.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/tools.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/setup.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/config.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/stdio.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/types.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/stdint.h \
@@ -37,8 +37,8 @@
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm/page.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/ctype.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/assert.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/version.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/revision.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/version.h \
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/revision.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sched.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/time.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/linux/time.h \
@@ -58,7 +58,7 @@
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm/errno.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm-generic/errno.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm-generic/errno-base.h \
- /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/list.h
+ /Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/list.h
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/jni.h:
 
@@ -68,13 +68,13 @@
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/android/api-level.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/thread.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/thread.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/tools.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/tools.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/setup.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/setup.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/config.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/config.h:
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/stdio.h:
 
@@ -134,9 +134,9 @@
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/assert.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/version.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/version.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/revision.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/revision.h:
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sched.h:
 
@@ -176,4 +176,4 @@
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm-generic/errno-base.h:
 
-/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/list.h:
+/Users/amberxiangli/Desktop/gpac-backup/build/android/jni/libgpac/../../../../include/gpac/list.h:

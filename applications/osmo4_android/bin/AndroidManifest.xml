@@ -111,13 +111,6 @@
                 <data android:scheme="file" />
             </intent-filter>
         </activity>
-        
-        <receiver android:name="com.gpac.Osmo4.MobilinsightReceiver" >
-            <intent-filter >
-                <action android:name="">
-                </action>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

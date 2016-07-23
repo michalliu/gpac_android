@@ -529,7 +529,7 @@ extension.view_stats = function () {
     wnd.update_series = function() {
         var ext = this.extension;
         var length = (ext.stats_data.length > ext.stats_window ? stats_window : ext.stats_data.length);
-        
+
         this.s_fps.refresh_serie(ext.stats_data, 'time', 'fps', length, 4);
         if (this.s_bw) {
             this.s_bw.refresh_serie(ext.stats_data, 'time', 'http_bandwidth', length, 1);
