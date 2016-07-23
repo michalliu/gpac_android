@@ -26,7 +26,6 @@
 /* for static logging */ 
 #include<stdio.h>
 #include<string.h>
-#include <jni.h>
 
 #include <gpac/thread.h>
 #include <gpac/network.h>
@@ -37,6 +36,9 @@
 #include <gpac/base_coding.h>
 #include <string.h>
 #include <sys/stat.h>
+
+
+#include <gpac/phy_bandwidth.h>
 
 
 #ifdef _WIN32_WCE
@@ -329,6 +331,7 @@ void drm_decrypt(unsigned char * data, unsigned long dataSize, const char * decr
 
 // for log activity
 int64_t BASE_TIME = 0;
+int PHY_BANDWIDTH = 0;
 
 
 static const char *gf_dash_get_mime_type(GF_MPD_SubRepresentation *subrep, GF_MPD_Representation *rep, GF_MPD_AdaptationSet *set)
@@ -2310,47 +2313,15 @@ static void dash_store_stats(GF_DashClient *dash, GF_DASH_Group *group, GF_DASHF
 #endif
 }
 
-JNIEnv* create_vm(JavaVM ** jvm) {
-    
-    JNIEnv *env;
-    JavaVMInitArgs vm_args;
-    
-    JavaVMOption options;
-    //Path to the java source code
-    options.optionString = "-Djava.class.path=../../applications/osmo4_android/src/com/gpac/Osmo4";
-    vm_args.version = JNI_VERSION_1_6; //JDK version. This indicates version 1.6
-    vm_args.nOptions = 1;
-    vm_args.options = &options;
-    vm_args.ignoreUnrecognized = 0;
-    
-    int ret = JNI_CreateJavaVM(jvm, (void**)&env, &vm_args);
-    if(ret < 0)
-        printf("\nUnable to Launch JVM\n");
-    return env;
-}
-
-int invoke_class(JNIEnv* env)
-{
-    int physical_bandwidth;
-    jclass MobilinsightReceiver;
-    jmethodID passPHYBandwidth;
-    
-    MobilinsightReceiver = (*env)->FindClass(env, "MobilinsightReceiver");
-    passPHYBandwidth = (*env)->GetStaticMethodID(env, MobilinsightReceiver, "passPHYBandwidth", "()I");
-    physical_bandwidth = (int)(*env)->CallStaticIntMethod(env, MobilinsightReceiver, passPHYBandwidth, 0);
+void predict_bandwidth(int bw){
+    PHY_BANDWIDTH = bw;
 }
 
 
 static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 {
-    int phy_bandwidth = 0;
-    
-    JavaVM *jvm;
-    JNIEnv *env;
-    env = create_vm(&jvm);
-    phy_bandwidth = invoke_class(env);
-    
-    
+    // here use PHY_BANDWIDTH instead of dl_rate to choose next segment
+
 	Double speed;
 	u32 k, dl_rate;
 	Bool go_up_bitrate = GF_FALSE;

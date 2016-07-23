@@ -61,6 +61,7 @@
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/endian.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/endian.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/machine/endian.h \
+ /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/phy_bandwidth.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/time.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm/siginfo.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm-generic/siginfo.h \
@@ -187,6 +188,8 @@
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/endian.h:
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/machine/endian.h:
+
+/Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/phy_bandwidth.h:
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/time.h:
 

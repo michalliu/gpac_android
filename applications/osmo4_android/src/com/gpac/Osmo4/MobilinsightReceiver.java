@@ -6,18 +6,14 @@ import android.content.Intent;
 
 public class MobilinsightReceiver extends BroadcastReceiver {
 	
-	public static int phy_bandwidth = 0;
-
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
 		// key depends mobilinsight side
-		phy_bandwidth = intent.getIntExtra("key", 0);
-		passPHYBandwidth();	
+		int phy_bandwidth = intent.getIntExtra("key", 0);
+		setPHYBandwidth(phy_bandwidth);	
 	}
 	
-	public int passPHYBandwidth(){
-		return phy_bandwidth;
-	}
+	public native int setPHYBandwidth(int bw);
 
 }
