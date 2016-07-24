@@ -331,7 +331,8 @@ void drm_decrypt(unsigned char * data, unsigned long dataSize, const char * decr
 
 // for log activity
 int64_t BASE_TIME = 0;
-int PHY_BANDWIDTH = 0;
+int64_t BASE_TIME_BW = 0;
+float PHY_BANDWIDTH = 0;
 
 
 static const char *gf_dash_get_mime_type(GF_MPD_SubRepresentation *subrep, GF_MPD_Representation *rep, GF_MPD_AdaptationSet *set)
@@ -2313,8 +2314,37 @@ static void dash_store_stats(GF_DashClient *dash, GF_DASH_Group *group, GF_DASHF
 #endif
 }
 
-void predict_bandwidth(int bw){
+void predict_bandwidth(float bw){
     PHY_BANDWIDTH = bw;
+    
+//    FILE *fp;
+//    
+//    if (BASE_TIME_BW==0)
+//    {
+//        struct timeval t;
+//        gettimeofday(&t, 0);
+//        BASE_TIME_BW = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
+//        
+//        fp = fopen("/mnt/sdcard/log_phy_bw.txt", "w+");
+//        fclose(fp);
+//    }
+//    
+//    
+//    // print timestamp, used bandwidth and available bandwidth
+//    fp = fopen("/mnt/sdcard/log_phy_bw.txt", "a+");
+//    
+//    // compute time
+//    struct timeval t2;
+//    gettimeofday(&t2, 0);
+//    int64_t cur_time_abs = t2.tv_sec * INT64_C(1000) + t2.tv_usec / 1000;
+//    int64_t cur_time_rlt = cur_time_abs - BASE_TIME_BW;
+//    
+//    float time = (float) cur_time_rlt/1000;
+//    
+//    fprintf(fp, "%.3fs ", time);
+//    fprintf(fp, "%f\n ", PHY_BANDWIDTH);
+//    
+//    fclose(fp);
 }
 
 
@@ -2379,6 +2409,10 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 
 	fprintf(fp, "%.3fs ", time);
 	fprintf(fp, "%d %d ", rep->bandwidth, dl_rate);
+    
+    fprintf(fp, "%f\n", PHY_BANDWIDTH);
+    
+    fclose(fp);
 	
 	
     
@@ -2409,16 +2443,11 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
     
     
     
-    fprintf(fp, "%d ", group->buffer_max_ms);
-    
-    
 
 	/*buffer-based control (skip if cache is full, ie player did not fetched downloaded data yet: if we are below half of the buffer don't try to go up and limit rate to less than our current rep bandwidth*/
     // >>>>>>>>>>>> if occupy buffer higher than high threshold, indicates video running fast and smooth
     // >>>>>>>>>>>> if occupy buffer lower than low threshold, indicates video running slow and choppy
 	if (group->buffer_max_ms && (group->nb_cached_segments<group->max_cached_segments) ) {
-        char in[] = "in";
-        fprintf(fp, "%s ", in);
         
 		u32 buf_high_threshold, buf_low_threshold;
 		s32 occ;
@@ -2455,10 +2484,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 			GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH] AS#%d bitrate %d bps buffer max %d current %d refill since last %d - steady\n", 1+gf_list_find(group->period->adaptation_sets, group->adaptation_set), rep->bandwidth, group->buffer_max_ms, group->buffer_occupancy_ms, occ));
 		}
 	}
-    char out[] = "out";
-    fprintf(fp, "%s\n", out);
-    
-    fclose(fp);
+
 
 	/*find best bandwidth that fits our bitrate and playing speed*/
 	new_rep = NULL;

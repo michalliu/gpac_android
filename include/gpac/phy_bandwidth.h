@@ -9,7 +9,7 @@
 #ifndef phy_bandwidth_h
 #define phy_bandwidth_h
 
-void predict_bandwidth(int bw);
+void predict_bandwidth(float bw);
 
 
 #endif /* phy_bandwidth_h */

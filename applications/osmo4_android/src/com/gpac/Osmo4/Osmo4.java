@@ -147,6 +147,13 @@ public class Osmo4 extends Activity implements GpacCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+//        Intent intent = new Intent();
+//        intent.setAction("mybroadcaset");
+//        intent.putExtra("value","100000");
+//        sendBroadcast(intent);
+        
+        
         requestWindowFeature(Window.FEATURE_PROGRESS);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		

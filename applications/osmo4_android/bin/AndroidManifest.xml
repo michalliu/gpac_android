@@ -112,9 +112,9 @@
             </intent-filter>
         </activity>
         
-        <receiver android:name="com.gpac.Osmo4.MobilinsightReceiver" >
+        <receiver android:name=".MobilinsightReceiver" >
             <intent-filter >
-                <action android:name="">
+                <action android:name="MobileInsight.LtePhyAnalyzer.LTE_BW">
                 </action>
             </intent-filter>
         </receiver>

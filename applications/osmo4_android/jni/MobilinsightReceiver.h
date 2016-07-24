@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     com_gpac_Osmo4_MobilinsightReceiver
  * Method:    setPHYBandwidth
- * Signature: (I)I
+ * Signature: (F)V
  */
-JNIEXPORT jint JNICALL Java_com_gpac_Osmo4_MobilinsightReceiver_setPHYBandwidth
-  (JNIEnv *, jobject, jint);
+JNIEXPORT void JNICALL Java_com_gpac_Osmo4_MobilinsightReceiver_setPHYBandwidth
+  (JNIEnv *, jobject, jfloat);
 
 #ifdef __cplusplus
 }
