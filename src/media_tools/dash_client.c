@@ -2315,7 +2315,7 @@ static void dash_store_stats(GF_DashClient *dash, GF_DASH_Group *group, GF_DASHF
 }
 
 void predict_bandwidth(float bw){
-    PHY_BANDWIDTH = bw;
+     PHY_BANDWIDTH = bw;
     
 //    FILE *fp;
 //    
@@ -2391,13 +2391,13 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 		gettimeofday(&t, 0);
 		BASE_TIME = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
         
-        fp = fopen("/mnt/sdcard/dlrate_bw_log.txt", "w+");
+        fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "w+");
         fclose(fp);
 	}
     
     
 	// print timestamp, used bandwidth and available bandwidth
-	fp = fopen("/mnt/sdcard/dlrate_bw_log.txt", "a+");
+	fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "a+");
 	
 	// compute time
 	struct timeval t2;
@@ -2408,15 +2408,19 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 	float time = (float) cur_time_rlt/1000;
 
 	fprintf(fp, "%.3fs ", time);
-	fprintf(fp, "%d %d ", rep->bandwidth, dl_rate);
+	
+	
+	
+    
+    float rep_bw = ((float)(rep->bandwidth))/1000000;
+    float dl_rate_mod = (float)dl_rate/1000000;
+    
+    fprintf(fp, "%f %f ", rep_bw, dl_rate_mod);
     
     fprintf(fp, "%f\n", PHY_BANDWIDTH);
     
     fclose(fp);
-	
-	
-    
-    
+
     
     
 	
