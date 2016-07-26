@@ -17,10 +17,10 @@ public class MobilinsightReceiver extends BroadcastReceiver {
 		String prompt = "phy bandwidth = ";
 		String unit = "Mbps";
 		String toast = prompt + phy_bandwidth_char + unit;
+		Toast.makeText(context, toast, Toast.LENGTH_LONG).show();
+		
 		float phy_bandwidth = Float.parseFloat(phy_bandwidth_char);
-		
-		Toast.makeText(context, Float.toString(phy_bandwidth), Toast.LENGTH_LONG).show();
-		
+
 		setPHYBandwidth(phy_bandwidth);	
 	}
 	
