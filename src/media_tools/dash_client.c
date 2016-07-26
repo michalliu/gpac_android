@@ -332,8 +332,8 @@ void drm_decrypt(unsigned char * data, unsigned long dataSize, const char * decr
 // for log activity
 int64_t BASE_TIME = 0;
 int64_t BASE_TIME_BW = 0;
+//int PHY_BANDWIDTH = 0;
 float PHY_BANDWIDTH = 0;
-
 
 static const char *gf_dash_get_mime_type(GF_MPD_SubRepresentation *subrep, GF_MPD_Representation *rep, GF_MPD_AdaptationSet *set)
 {
@@ -2315,8 +2315,9 @@ static void dash_store_stats(GF_DashClient *dash, GF_DASH_Group *group, GF_DASHF
 }
 
 void predict_bandwidth(float bw){
-     PHY_BANDWIDTH = bw;
-    
+    //PHY_BANDWIDTH = bw * 1000000;
+
+    PHY_BANDWIDTH = bw;
 //    FILE *fp;
 //    
 //    if (BASE_TIME_BW==0)
@@ -2391,13 +2392,13 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 		gettimeofday(&t, 0);
 		BASE_TIME = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
         
-        fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "w+");
+        fp = fopen("/mnt/sdcard/dlrate_bw_log.txt", "w+");
         fclose(fp);
 	}
     
     
 	// print timestamp, used bandwidth and available bandwidth
-	fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "a+");
+	fp = fopen("/mnt/sdcard/dlrate_bw_log.txt", "a+");
 	
 	// compute time
 	struct timeval t2;
@@ -2412,6 +2413,14 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 	
 	
     
+    
+    
+    
+	
+//	if (rep->bandwidth < dl_rate) {
+//		go_up_bitrate = 1;
+//	}
+    
     float rep_bw = ((float)(rep->bandwidth))/1000000;
     float dl_rate_mod = (float)dl_rate/1000000;
     
@@ -2420,13 +2429,11 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
     fprintf(fp, "%f\n", PHY_BANDWIDTH);
     
     fclose(fp);
-
     
+    if (rep->bandwidth < dl_rate){
+        go_up_bitrate = 1;
+    }
     
-	
-	if (rep->bandwidth < dl_rate) {
-		go_up_bitrate = 1;
-	}
 	if (dl_rate < group->min_representation_bitrate)
 		dl_rate = group->min_representation_bitrate;
 
@@ -2502,49 +2509,86 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 			if (arep->playback.disabled) continue;
 			if (arep->playback.prev_max_available_speed && (speed > arep->playback.prev_max_available_speed))
 				continue;
-
-			if (dl_rate >= arep->bandwidth) {
-				if (force_below_resolution && !dash->disable_speed_adaptation) {
-					if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
-					/*try to switch to highest quality below the current one*/
-					if ((arep->quality_ranking < rep->quality_ranking) || (arep->width < rep->width) || (arep->height < rep->height)) {
-						if (!new_rep)
-							new_rep = arep;
-						else if ((arep->quality_ranking > new_rep->quality_ranking) || (arep->width > new_rep->width) || (arep->height > new_rep->height))
-							new_rep = arep;
-					}
-					rep->playback.prev_max_available_speed = max_available_speed;
-					go_up_bitrate = GF_FALSE;
-				} else {
-					if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
-					if (!new_rep) new_rep = arep;
-					else if (go_up_bitrate) {
-						if (dash->agressive_switching) {
-							/*try to switch to highest bitrate below available download rate*/
-							if (arep->bandwidth > new_rep->bandwidth) {
-								if (new_rep->bandwidth > rep->bandwidth) {
-									nb_inter_rep ++;
-								}
-								new_rep = arep;
-							} else if (arep->bandwidth > rep->bandwidth) {
-								nb_inter_rep ++;
-							}
-						} else {
-							/*try to switch to lowest bitrate above our current rep*/
-							if (new_rep->bandwidth<=rep->bandwidth) {
-								new_rep = arep;
-							} else if ( (arep->bandwidth < new_rep->bandwidth) && (arep->bandwidth > rep->bandwidth)) {
-								new_rep = arep;
-							}
-						}
-					} else {
-						/*try to switch to highest bitrate below available download rate*/
-						if (arep->bandwidth > new_rep->bandwidth) {
-							new_rep = arep;
-						}
-					}
-				}
-			}
+            
+            // PHY_BANDWIDTH
+            float arep_bw = ((float)(arep->bandwidth))/1000000;
+            if(PHY_BANDWIDTH >= arep_bw){
+                if (force_below_resolution && !dash->disable_speed_adaptation) {
+                    if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
+                    /*try to switch to highest quality below the current one*/
+                    if ((arep->quality_ranking < rep->quality_ranking) || (arep->width < rep->width) || (arep->height < rep->height)) {
+                        if (!new_rep)
+                            new_rep = arep;
+                        else if ((arep->quality_ranking > new_rep->quality_ranking) || (arep->width > new_rep->width) || (arep->height > new_rep->height))
+                            new_rep = arep;
+                    }
+                    rep->playback.prev_max_available_speed = max_available_speed;
+                    go_up_bitrate = GF_FALSE;
+                    
+                }else {
+                    if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
+                    if (!new_rep) new_rep = arep;
+                    else if (go_up_bitrate) {
+                        if (arep->bandwidth > new_rep->bandwidth) {
+                            if (new_rep->bandwidth > rep->bandwidth) {
+                                nb_inter_rep ++;
+                            }
+                            new_rep = arep;
+                        } else if (arep->bandwidth > rep->bandwidth) {
+                            nb_inter_rep ++;
+                        }
+                    }else {
+                        /*try to switch to highest bitrate below available download rate*/
+                        if (arep->bandwidth > new_rep->bandwidth) {
+                            new_rep = arep;
+                        }
+                    }
+                }
+            }
+            
+                
+//			if (dl_rate >= arep->bandwidth) {
+//				if (force_below_resolution && !dash->disable_speed_adaptation) {
+//					if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
+//					/*try to switch to highest quality below the current one*/
+//					if ((arep->quality_ranking < rep->quality_ranking) || (arep->width < rep->width) || (arep->height < rep->height)) {
+//						if (!new_rep)
+//							new_rep = arep;
+//						else if ((arep->quality_ranking > new_rep->quality_ranking) || (arep->width > new_rep->width) || (arep->height > new_rep->height))
+//							new_rep = arep;
+//					}
+//					rep->playback.prev_max_available_speed = max_available_speed;
+//					go_up_bitrate = GF_FALSE;
+//				} else {
+//					if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
+//					if (!new_rep) new_rep = arep;
+//					else if (go_up_bitrate) {
+//						if (dash->agressive_switching) {
+//							/*try to switch to highest bitrate below available download rate*/
+//							if (arep->bandwidth > new_rep->bandwidth) {
+//								if (new_rep->bandwidth > rep->bandwidth) {
+//									nb_inter_rep ++;
+//								}
+//								new_rep = arep;
+//							} else if (arep->bandwidth > rep->bandwidth) {
+//								nb_inter_rep ++;
+//							}
+//						} else {
+//							/*try to switch to lowest bitrate above our current rep*/
+//							if (new_rep->bandwidth<=rep->bandwidth) {
+//								new_rep = arep;
+//							} else if ( (arep->bandwidth < new_rep->bandwidth) && (arep->bandwidth > rep->bandwidth)) {
+//								new_rep = arep;
+//							}
+//						}
+//					} else {
+//						/*try to switch to highest bitrate below available download rate*/
+//						if (arep->bandwidth > new_rep->bandwidth) {
+//							new_rep = arep;
+//						}
+//					}
+//				}
+//			}
 		}
 
 		if (!new_rep || (new_rep==rep)) {
@@ -5100,6 +5144,8 @@ restart_period:
 						all_groups_done = 0;
 					}
 				}
+                
+                
 				if (all_groups_done && dash->request_period_switch) {
 					gf_dash_reset_groups(dash);
 					if (dash->request_period_switch == 1) {

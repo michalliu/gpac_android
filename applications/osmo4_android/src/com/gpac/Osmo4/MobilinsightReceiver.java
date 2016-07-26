@@ -14,8 +14,13 @@ public class MobilinsightReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		String phy_bandwidth_char = intent.getStringExtra("Bandwidth (Mbps)");
-		Toast.makeText(context, phy_bandwidth_char, Toast.LENGTH_LONG).show();
+		String prompt = "phy bandwidth = ";
+		String unit = "Mbps";
+		String toast = prompt + phy_bandwidth_char + unit;
 		float phy_bandwidth = Float.parseFloat(phy_bandwidth_char);
+		
+		Toast.makeText(context, Float.toString(phy_bandwidth), Toast.LENGTH_LONG).show();
+		
 		setPHYBandwidth(phy_bandwidth);	
 	}
 	

@@ -3,6 +3,7 @@
 
 JNIEXPORT void JNICALL Java_com_gpac_Osmo4_MobilinsightReceiver_setPHYBandwidth(JNIEnv * env, jobject obj, jfloat bw)
 {
-	predict_bandwidth((float)bw);
+	float tmp = (float)bw;
+	predict_bandwidth(tmp);
 }
 

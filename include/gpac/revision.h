@@ -1,1 +1,1 @@
-#define GPAC_GIT_REVISION	"UNKNOWN-broadcast"
+#define GPAC_GIT_REVISION "UNKNOWN_REV"
