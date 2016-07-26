@@ -34,6 +34,7 @@
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm/page.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/ctype.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/assert.h \
+ /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/phy_bandwidth.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/nodes_svg.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/scenegraph_svg.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/scenegraph.h \
@@ -56,6 +57,11 @@
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/network.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/options.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/xml.h \
+ /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/time.h \
+ /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/time.h \
+ /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/linux/time.h \
+ /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm/siginfo.h \
+ /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm-generic/siginfo.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/internal/scenegraph_dev.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/thread.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/internal/smjs_api.h \
@@ -161,6 +167,8 @@
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/assert.h:
 
+/Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/phy_bandwidth.h:
+
 /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/nodes_svg.h:
 
 /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/scenegraph_svg.h:
@@ -204,6 +212,16 @@
 /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/options.h:
 
 /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/xml.h:
+
+/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/time.h:
+
+/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/time.h:
+
+/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/linux/time.h:
+
+/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm/siginfo.h:
+
+/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/asm-generic/siginfo.h:
 
 /Users/amberxiangli/Desktop/gpac-master/build/android/jni/modules/../../../../include/gpac/internal/scenegraph_dev.h:
 

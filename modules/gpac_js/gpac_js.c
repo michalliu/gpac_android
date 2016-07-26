@@ -25,6 +25,7 @@
 
 
 #include <gpac/setup.h>
+#include <gpac/phy_bandwidth.h>
 
 #ifdef GPAC_HAS_SPIDERMONKEY
 
@@ -39,6 +40,18 @@
 #include <gpac/network.h>
 #include <gpac/options.h>
 #include <gpac/xml.h>
+
+
+
+#include<stdio.h>
+
+#ifdef _WIN32_WCE
+#include <winbase.h>
+#else
+#include <time.h>
+#endif
+
+
 
 
 #if defined(GPAC_ANDROID) && !defined(XP_UNIX)
@@ -64,6 +77,10 @@
 #include <gpac/term_info.h>
 
 #define GPAC_JS_RTI_REFRESH_RATE	200
+
+float PHY_BANDWIDTH = 0;
+int64_t BASE_TIME_BUFFER = 0;
+int64_t BASE_TIME_AVG_BITRATE = 0;
 
 typedef struct
 {
@@ -204,12 +221,24 @@ enum {
 	GJS_EVT_PROP_HWKEY = -9,
 };
 
+void predict_bandwidth(float bw){
+    PHY_BANDWIDTH = bw;
+}
+
 
 static GF_Terminal *gpac_get_term(JSContext *c, JSObject *obj)
 {
 	GF_GPACJSExt *ext = (GF_GPACJSExt *)SMJS_GET_PRIVATE(c, obj);
 	return ext ? ext->term : NULL;
 }
+
+
+
+
+
+
+
+
 
 static SMJS_FUNC_PROP_GET( gpac_getProperty)
 
@@ -423,6 +452,15 @@ return JS_TRUE;
 }
 
 
+
+
+
+
+
+
+
+
+
 static SMJS_FUNC_PROP_SET( gpac_setProperty)
 
 s32 prop_id;
@@ -512,6 +550,14 @@ case GJS_GPAC_PROP_SENSORS_ACTIVE:
 }
 return JS_TRUE;
 }
+
+
+
+
+
+
+
+
 
 static JSBool SMJS_FUNCTION(gpac_get_option)
 {
@@ -1021,6 +1067,17 @@ static JSBool SMJS_FUNCTION(gpac_migrate_url)
 	return JS_TRUE;
 }
 
+
+static screwyou(){
+    
+}
+
+
+
+
+
+
+
 static SMJS_FUNC_PROP_GET( odm_getProperty)
 
 GF_ObjectManager *odm = (GF_ObjectManager *)SMJS_GET_PRIVATE(c, obj);
@@ -1060,8 +1117,48 @@ case GJS_OM_PROP_STATUS:
 	*vp = STRING_TO_JSVAL(JS_NewStringCopyZ(c, str));
 	break;
 case GJS_OM_PROP_BUFFER:
-	*vp = INT_TO_JSVAL( odi.buffer);
-	break;
+    {
+        FILE *fp;
+        
+        if (BASE_TIME_BUFFER==0)
+        {
+            struct timeval t;
+            gettimeofday(&t, 0);
+            BASE_TIME_BUFFER = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
+            
+            //fp = fopen("/mnt/sdcard/buffer_log_orig.txt", "w+");
+            fp = fopen("/mnt/sdcard/buffer_log_mod.txt", "w+");
+            fclose(fp);
+        }
+        
+        //fp = fopen("/mnt/sdcard/buffer_log_orig.txt", "a+");
+        fp = fopen("/mnt/sdcard/buffer_log_mod.txt", "a+");
+        
+        // compute time
+        struct timeval t2;
+        gettimeofday(&t2, 0);
+        int64_t cur_time_abs = t2.tv_sec * INT64_C(1000) + t2.tv_usec / 1000;
+        int64_t cur_time_rlt = cur_time_abs - BASE_TIME_BUFFER;
+        
+        float time = (float) cur_time_rlt/1000;
+        fprintf(fp, "%.3f ", time);
+        
+        fprintf(fp, "%f ", PHY_BANDWIDTH);
+        
+
+        int js_buffer = odi.buffer;
+        fprintf(fp, "%d\n", js_buffer);
+        
+        fclose(fp);
+        
+        
+        
+        *vp = INT_TO_JSVAL( odi.buffer);
+        break;
+        
+    }
+        
+        
 case GJS_OM_PROP_DB_COUNT:
 	*vp = INT_TO_JSVAL( odi.db_unit_count);
 	break;
@@ -1121,8 +1218,46 @@ case GJS_OM_PROP_DEC_TIME_TOTAL:
 	*vp = INT_TO_JSVAL(odi.total_dec_time);
 	break;
 case GJS_OM_PROP_AVG_RATE:
-	*vp = INT_TO_JSVAL(odi.avg_bitrate);
-	break;
+    {
+        FILE *fp;
+        
+        if (BASE_TIME_AVG_BITRATE==0)
+        {
+            struct timeval t;
+            gettimeofday(&t, 0);
+            BASE_TIME_AVG_BITRATE = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
+            
+            //fp = fopen("/mnt/sdcard/avg_bitrate_log_orig.txt", "w+");
+            fp = fopen("/mnt/sdcard/avg_bitrate_log_mod.txt", "w+");
+            fclose(fp);
+        }
+        
+        //fp = fopen("/mnt/sdcard/avg_bitrate_log_orig.txt", "a+");
+        fp = fopen("/mnt/sdcard/avg_bitrate_log_mod.txt", "a+");
+        
+        // compute time
+        struct timeval t2;
+        gettimeofday(&t2, 0);
+        int64_t cur_time_abs = t2.tv_sec * INT64_C(1000) + t2.tv_usec / 1000;
+        int64_t cur_time_rlt = cur_time_abs - BASE_TIME_AVG_BITRATE;
+        
+        float time = (float) cur_time_rlt/1000;
+        fprintf(fp, "%.3f ", time);
+        
+        fprintf(fp, "%f ", PHY_BANDWIDTH);
+        
+        
+        float js_avg_bitrate = odi.avg_bitrate/1000000;
+        fprintf(fp, "%f\n ", js_avg_bitrate);
+        
+        fclose(fp);
+        
+        
+        *vp = INT_TO_JSVAL(odi.avg_bitrate);
+        break;
+    }
+        
+	
 case GJS_OM_PROP_MAX_RATE:
 	*vp = INT_TO_JSVAL(odi.max_bitrate);
 	break;
@@ -1409,6 +1544,15 @@ case GJS_OM_PROP_IS_VR_SCENE:
 return JS_TRUE;
 }
 
+
+
+
+
+
+
+
+
+
 static JSBool SMJS_FUNCTION(gjs_odm_get_quality)
 {
 	GF_NetworkCommand com;
@@ -1453,6 +1597,41 @@ static JSBool SMJS_FUNCTION(gjs_odm_get_quality)
 
 
 		SMJS_SET_RVAL( OBJECT_TO_JSVAL(a) );
+        
+//        // write quality to file
+//        FILE *fp;
+//        
+//        if (BASE_TIME==0)
+//        {
+//            struct timeval t;
+//            gettimeofday(&t, 0);
+//            BASE_TIME = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
+//            
+//            //fp = fopen("/mnt/sdcard/quality_log_orig.txt", "w+");
+//            fp = fopen("/mnt/sdcard/quality_log_mod.txt", "w+");
+//            fclose(fp);
+//        }
+//        
+//        
+//        // print timestamp, used bandwidth and available bandwidth
+//        //fp = fopen("/mnt/sdcard/quality_log_orig.txt", "a+");
+//        fp = fopen("/mnt/sdcard/quality_log_mod.txt.txt", "a+");
+//        
+//        // compute time
+//        struct timeval t2;
+//        gettimeofday(&t2, 0);
+//        int64_t cur_time_abs = t2.tv_sec * INT64_C(1000) + t2.tv_usec / 1000;
+//        int64_t cur_time_rlt = cur_time_abs - BASE_TIME;
+//        
+//        float time = (float) cur_time_rlt/1000;
+//        
+//        fprintf(fp, "%.3fs ", time);
+//        
+//        // unit Mpbs?
+//        float js_quality = com.quality_query.bandwidth / 1000000;
+//        
+//        fclose(fp);
+        
 	} else {
 		SMJS_SET_RVAL(JSVAL_NULL);
 	}

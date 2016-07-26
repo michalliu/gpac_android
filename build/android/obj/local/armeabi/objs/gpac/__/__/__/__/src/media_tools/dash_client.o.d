@@ -17,13 +17,13 @@
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/linux/types.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/machine/kernel.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/sysmacros.h \
- /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/string.h \
- /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/malloc.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/thread.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/tools.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/setup.h \
  /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/config.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/stdlib.h \
+ /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/string.h \
+ /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/malloc.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/alloca.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/strings.h \
  /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/memory.h \
@@ -101,10 +101,6 @@
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/sys/sysmacros.h:
 
-/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/string.h:
-
-/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/malloc.h:
-
 /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/thread.h:
 
 /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/../../../../include/gpac/tools.h:
@@ -114,6 +110,10 @@
 /Users/amberxiangli/Desktop/gpac-master/build/android/jni/libgpac/config.h:
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/stdlib.h:
+
+/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/string.h:
+
+/Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/malloc.h:
 
 /Users/amberxiangli/Library/android/ndk_r10e/platforms/android-8/arch-arm/usr/include/alloca.h:
 

@@ -25,7 +25,6 @@
 
 /* for static logging */ 
 #include<stdio.h>
-#include<string.h>
 
 #include <gpac/thread.h>
 #include <gpac/network.h>
@@ -331,7 +330,7 @@ void drm_decrypt(unsigned char * data, unsigned long dataSize, const char * decr
 
 // for log activity
 int64_t BASE_TIME = 0;
-int64_t BASE_TIME_BW = 0;
+
 //int PHY_BANDWIDTH = 0;
 float PHY_BANDWIDTH = 0;
 
@@ -2392,13 +2391,15 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 		gettimeofday(&t, 0);
 		BASE_TIME = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
         
-        fp = fopen("/mnt/sdcard/dlrate_bw_log.txt", "w+");
+        //fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "w+");
+        fp = fopen("/mnt/sdcard/dlrate_bw_log_mod.txt", "w+");
         fclose(fp);
 	}
     
     
 	// print timestamp, used bandwidth and available bandwidth
-	fp = fopen("/mnt/sdcard/dlrate_bw_log.txt", "a+");
+    //fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "a+");
+	fp = fopen("/mnt/sdcard/dlrate_bw_log_mod.txt", "a+");
 	
 	// compute time
 	struct timeval t2;
@@ -2408,27 +2409,16 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 
 	float time = (float) cur_time_rlt/1000;
 
-	fprintf(fp, "%.3fs ", time);
+	fprintf(fp, "%.3f ", time);
 	
 	
-	
-    
-    
-    
-    
-	
-//	if (rep->bandwidth < dl_rate) {
-//		go_up_bitrate = 1;
-//	}
     
     float rep_bw = ((float)(rep->bandwidth))/1000000;
     float dl_rate_mod = (float)dl_rate/1000000;
     
     fprintf(fp, "%f %f ", rep_bw, dl_rate_mod);
     
-    fprintf(fp, "%f\n", PHY_BANDWIDTH);
     
-    fclose(fp);
     
     if (rep->bandwidth < dl_rate){
         go_up_bitrate = 1;
@@ -2510,8 +2500,22 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 			if (arep->playback.prev_max_available_speed && (speed > arep->playback.prev_max_available_speed))
 				continue;
             
+            
+            
+            
+            
+            
             // PHY_BANDWIDTH
             float arep_bw = ((float)(arep->bandwidth))/1000000;
+            
+            
+            fprintf(fp, "%f\n", PHY_BANDWIDTH);
+            
+            fclose(fp);
+            
+            
+            
+            //if(dl_rate >= arep->bandwidth){
             if(PHY_BANDWIDTH >= arep_bw){
                 if (force_below_resolution && !dash->disable_speed_adaptation) {
                     if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
@@ -2597,18 +2601,18 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 		}
 	}
 
-	if (do_switch) {
-		//if we're switching to the next upper bitrate (no intermediate bitrates), do not immediately switch
-		//but for a given number of segments - this avoids fluctuation in the quality
-		if (go_up_bitrate && ! nb_inter_rep) {
-			new_rep->playback.probe_switch_count++;
-			if (new_rep->playback.probe_switch_count > dash->probe_times_before_switch) {
-				new_rep->playback.probe_switch_count = 0;
-			} else {
-				do_switch = 0;
-			}
-		}
-	}
+//	if (do_switch) {
+//		//if we're switching to the next upper bitrate (no intermediate bitrates), do not immediately switch
+//		//but for a given number of segments - this avoids fluctuation in the quality
+//		if (go_up_bitrate && ! nb_inter_rep) {
+//			new_rep->playback.probe_switch_count++;
+//			if (new_rep->playback.probe_switch_count > dash->probe_times_before_switch) {
+//				new_rep->playback.probe_switch_count = 0;
+//			} else {
+//				do_switch = 0;
+//			}
+//		}
+//	}
 
 	if (do_switch) {
 		GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH] AS#%d switching after playing %d segments from current rep\n", 1+gf_list_find(group->period->adaptation_sets, group->adaptation_set), group->nb_segments_since_switch));

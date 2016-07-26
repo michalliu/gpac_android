@@ -24,6 +24,8 @@
  */
 
 
+#include <gpac/phy_bandwidth.h>
+
 /*includes both terminal and od browser*/
 #include <gpac/terminal.h>
 #include <gpac/term_info.h>
@@ -125,6 +127,15 @@ u32 init_h = 0;
 u32 last_x, last_y;
 Bool right_down = GF_FALSE;
 
+
+
+
+float PHY_BANDWIDTH = 0;
+
+
+
+
+
 void dump_frame(GF_Terminal *term, char *rad_path, u32 dump_type, u32 frameNum);
 
 enum
@@ -143,6 +154,15 @@ enum
 };
 
 Bool dump_file(char *the_url, char *out_url, u32 dump_mode, Double fps, u32 width, u32 height, Float scale, u32 *times, u32 nb_times);
+
+
+
+
+void predict_bandwidth(float bw){
+    PHY_BANDWIDTH = bw;
+}
+
+
 
 
 static Bool shell_visible = GF_TRUE;
