@@ -331,7 +331,7 @@ void drm_decrypt(unsigned char * data, unsigned long dataSize, const char * decr
 // for log activity
 int64_t BASE_TIME = 0;
 
-//int PHY_BANDWIDTH = 0;
+
 float PHY_BANDWIDTH = 0;
 
 static const char *gf_dash_get_mime_type(GF_MPD_SubRepresentation *subrep, GF_MPD_Representation *rep, GF_MPD_AdaptationSet *set)

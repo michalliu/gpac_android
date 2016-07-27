@@ -82,7 +82,9 @@ extern float PHY_BANDWIDTH;
 int64_t BASE_TIME_QUALITY = 0;
 int64_t BASE_TIME_BUFFER = 0;
 int64_t BASE_TIME_AVG_BITRATE = 0;
-int64_t BASE_TIME_NB_RES = 0;
+//int64_t BASE_TIME_NB_RES = 0;
+int64_t BASE_TIME_HTTP = 0;
+
 
 typedef struct
 {
@@ -384,8 +386,46 @@ case GJS_GPAC_PROP_HTTP_MAX_RATE:
 	break;
 
 case GJS_GPAC_PROP_HTTP_RATE:
-	*vp = INT_TO_JSVAL( gf_dm_get_global_rate(term->downloader) / 1000);
-	break;
+    {
+        FILE *fp;
+        
+        if (BASE_TIME_HTTP==0)
+        {
+            struct timeval t;
+            gettimeofday(&t, 0);
+            BASE_TIME_HTTP = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
+            
+            //fp = fopen("/mnt/sdcard/http_log_orig.txt", "w+");
+            fp = fopen("/mnt/sdcard/http_log_mod.txt", "w+");
+            fclose(fp);
+        }
+        
+        //fp = fopen("/mnt/sdcard/http_log_orig.txt", "a+");
+        fp = fopen("/mnt/sdcard/http_log_mod.txt", "a+");
+        
+        // compute time
+        struct timeval t2;
+        gettimeofday(&t2, 0);
+        int64_t cur_time_abs = t2.tv_sec * INT64_C(1000) + t2.tv_usec / 1000;
+        int64_t cur_time_rlt = cur_time_abs - BASE_TIME_HTTP;
+        
+        float time = (float) cur_time_rlt/1000;
+        fprintf(fp, "%.3f ", time);
+        
+        fprintf(fp, "%f ", PHY_BANDWIDTH);
+        
+        
+        float js_http = (float)gf_dm_get_global_rate(term->downloader)/1000000;
+        fprintf(fp, "%f\n ", js_http);
+        
+        fclose(fp);
+        
+        
+        *vp = INT_TO_JSVAL( gf_dm_get_global_rate(term->downloader) / 1000);
+        break;
+    }
+        
+	
 
 case GJS_GPAC_PROP_FPS:
 	*vp = DOUBLE_TO_JSVAL(JS_NewDouble(c, gf_term_get_framerate(term, 0) ) );
@@ -1180,8 +1220,8 @@ case GJS_OM_PROP_BUFFER:
         fprintf(fp, "%f ", PHY_BANDWIDTH);
         
 
-        int js_buffer = odi.buffer;
-        fprintf(fp, "%d\n", js_buffer);
+        float js_buffer = (float)odi.buffer/1000;
+        fprintf(fp, "%f\n", js_buffer);
         
         fclose(fp);
         
@@ -1281,7 +1321,7 @@ case GJS_OM_PROP_AVG_RATE:
         fprintf(fp, "%f ", PHY_BANDWIDTH);
         
         
-        float js_avg_bitrate = odi.avg_bitrate/1000000;
+        float js_avg_bitrate = (float)odi.avg_bitrate/1000000;
         fprintf(fp, "%f\n ", js_avg_bitrate);
         
         fclose(fp);
@@ -1663,7 +1703,7 @@ static JSBool SMJS_FUNCTION(gjs_odm_get_quality)
         fprintf(fp, "%f ", PHY_BANDWIDTH);
         
         // unit Mpbs?
-        float js_quality = com.quality_query.bandwidth / 1000000;
+        float js_quality = (float)com.quality_query.bandwidth / 1000000;
         fprintf(fp, "%f\n", js_quality);
         
         fclose(fp);
