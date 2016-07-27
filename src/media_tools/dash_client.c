@@ -2601,18 +2601,18 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 		}
 	}
 
-	if (do_switch) {
-		//if we're switching to the next upper bitrate (no intermediate bitrates), do not immediately switch
-		//but for a given number of segments - this avoids fluctuation in the quality
-		if (go_up_bitrate && ! nb_inter_rep) {
-			new_rep->playback.probe_switch_count++;
-			if (new_rep->playback.probe_switch_count > dash->probe_times_before_switch) {
-				new_rep->playback.probe_switch_count = 0;
-			} else {
-				do_switch = 0;
-			}
-		}
-	}
+//	if (do_switch) {
+//		//if we're switching to the next upper bitrate (no intermediate bitrates), do not immediately switch
+//		//but for a given number of segments - this avoids fluctuation in the quality
+//		if (go_up_bitrate && ! nb_inter_rep) {
+//			new_rep->playback.probe_switch_count++;
+//			if (new_rep->playback.probe_switch_count > dash->probe_times_before_switch) {
+//				new_rep->playback.probe_switch_count = 0;
+//			} else {
+//				do_switch = 0;
+//			}
+//		}
+//	}
 
 	if (do_switch) {
 		GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH] AS#%d switching after playing %d segments from current rep\n", 1+gf_list_find(group->period->adaptation_sets, group->adaptation_set), group->nb_segments_since_switch));
