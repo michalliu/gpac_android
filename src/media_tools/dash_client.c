@@ -2483,7 +2483,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
             
             
             //fprintf(fp, "%f\n", PHY_BANDWIDTH);
-            fprint(fp, "%f\n", cur_phy_bw);
+            fprintf(fp, "%f\n", cur_phy_bw);
             
             fclose(fp);
             
