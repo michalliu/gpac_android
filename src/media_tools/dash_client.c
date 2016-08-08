@@ -24,7 +24,8 @@
  */
 
 /* for static logging */ 
-#include<stdio.h>
+#include <stdio.h>
+#include <math.h>
 
 #include <gpac/thread.h>
 #include <gpac/network.h>
@@ -2317,34 +2318,6 @@ void predict_bandwidth(float bw){
     //PHY_BANDWIDTH = bw * 1000000;
 
     PHY_BANDWIDTH = bw;
-//    FILE *fp;
-//    
-//    if (BASE_TIME_BW==0)
-//    {
-//        struct timeval t;
-//        gettimeofday(&t, 0);
-//        BASE_TIME_BW = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
-//        
-//        fp = fopen("/mnt/sdcard/log_phy_bw.txt", "w+");
-//        fclose(fp);
-//    }
-//    
-//    
-//    // print timestamp, used bandwidth and available bandwidth
-//    fp = fopen("/mnt/sdcard/log_phy_bw.txt", "a+");
-//    
-//    // compute time
-//    struct timeval t2;
-//    gettimeofday(&t2, 0);
-//    int64_t cur_time_abs = t2.tv_sec * INT64_C(1000) + t2.tv_usec / 1000;
-//    int64_t cur_time_rlt = cur_time_abs - BASE_TIME_BW;
-//    
-//    float time = (float) cur_time_rlt/1000;
-//    
-//    fprintf(fp, "%.3fs ", time);
-//    fprintf(fp, "%f\n ", PHY_BANDWIDTH);
-//    
-//    fclose(fp);
 }
 
 
@@ -2361,6 +2334,8 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 	Bool force_below_resolution = GF_FALSE;
 	GF_DASH_Group *base_group = group;
 	Bool do_switch = GF_TRUE;
+    
+    float cur_phy_bw = PHY_BANDWIDTH;
 
 	if (dash->auto_switch_count) return;
 	if (group->dash->disable_switching) return;
@@ -2491,6 +2466,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 	new_rep = NULL;
 
 	if (do_switch) {
+        
 		for (k=0; k<gf_list_count(group->adaptation_set->representations) && do_switch; k++) {
 			GF_MPD_Representation *arep = gf_list_get(group->adaptation_set->representations, k);
 			if (!arep->playback.prev_max_available_speed)
@@ -2501,22 +2477,20 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 				continue;
             
             
-            
-            
-            
-            
             // PHY_BANDWIDTH
             float arep_bw = ((float)(arep->bandwidth))/1000000;
             
             
-            fprintf(fp, "%f\n", PHY_BANDWIDTH);
+            
+            //fprintf(fp, "%f\n", PHY_BANDWIDTH);
+            fprint(fp, "%f\n", cur_phy_bw);
             
             fclose(fp);
             
             
             
             //if(dl_rate >= arep->bandwidth){
-            if(PHY_BANDWIDTH >= arep_bw){
+            if(cur_phy_bw >= arep_bw){
                 if (force_below_resolution && !dash->disable_speed_adaptation) {
                     if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
                     /*try to switch to highest quality below the current one*/
@@ -2528,27 +2502,54 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                     }
                     rep->playback.prev_max_available_speed = max_available_speed;
                     go_up_bitrate = GF_FALSE;
-                    
-                }else {
-                    if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
-                    if (!new_rep) new_rep = arep;
-                    else if (go_up_bitrate) {
-                        if (arep->bandwidth > new_rep->bandwidth) {
-                            if (new_rep->bandwidth > rep->bandwidth) {
-                                nb_inter_rep ++;
-                            }
-                            new_rep = arep;
-                        } else if (arep->bandwidth > rep->bandwidth) {
-                            nb_inter_rep ++;
-                        }
-                    }else {
-                        /*try to switch to highest bitrate below available download rate*/
-                        if (arep->bandwidth > new_rep->bandwidth) {
-                            new_rep = arep;
-                        }
-                    }
                 }
             }
+            
+            if (!force_below_resolution || dash->disable_speed_adaptation){
+                if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
+                if (!new_rep) new_rep = arep;
+                else if (go_up_bitrate){
+                    float arep_bw_diff = fabs(cur_phy_bw - arep_bw);
+                    float newrep_bw_diff = fabs(cur_phy_bw - ((float)new_rep->bandwidth)/1000000);
+                    
+                    if (arep_bw_diff <= newrep_bw_diff){
+                        if (new_rep->bandwidth > rep->bandwidth) {
+                            nb_inter_rep ++;
+                        }
+                        new_rep = arep;
+                    }else if (arep->bandwidth > rep->bandwidth) {
+                        nb_inter_rep ++;
+                    }
+                }else {
+                    float arep_bw_diff = fabs(cur_phy_bw - arep_bw);
+                    float newrep_bw_diff = fabs(cur_phy_bw - ((float)new_rep->bandwidth)/1000000);
+                    if (arep_bw_diff <= newrep_bw_diff) {
+                        new_rep = arep;
+                    }
+                    
+                }
+            }
+            
+//                }else {
+//                    if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
+//                    if (!new_rep) new_rep = arep;
+//                    else if (go_up_bitrate) {
+//                        if (arep->bandwidth > new_rep->bandwidth) {
+//                            if (new_rep->bandwidth > rep->bandwidth) {
+//                                nb_inter_rep ++;
+//                            }
+//                            new_rep = arep;
+//                        } else if (arep->bandwidth > rep->bandwidth) {
+//                            nb_inter_rep ++;
+//                        }
+//                    }else {
+//                        /*try to switch to highest bitrate below available download rate*/
+//                        if (arep->bandwidth > new_rep->bandwidth) {
+//                            new_rep = arep;
+//                        }
+//                    }
+//                }
+//            }
             
                 
 //			if (dl_rate >= arep->bandwidth) {
