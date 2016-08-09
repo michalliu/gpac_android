@@ -2367,8 +2367,8 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 		BASE_TIME = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
         
         //fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "w+");
-        fp = fopen("/mnt/sdcard/dlrate_bw_log_mod.txt", "w+");
-        fclose(fp);
+        //fp = fopen("/mnt/sdcard/dlrate_bw_log_mod.txt", "w+");
+        //fclose(fp);
 	}
     
     
@@ -2394,7 +2394,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
     fprintf(fp, "%f %f ", rep_bw, dl_rate_mod);
     
     
-    
+    //if (rep->bandwidth < PHY_BANDWIDTH){
     if (rep->bandwidth < dl_rate){
         go_up_bitrate = 1;
     }
@@ -2485,8 +2485,8 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
             
             
             
-            fprintf(fp, "%f ", PHY_BANDWIDTH);
-            //fprintf(fp, "%f\n", cur_phy_bw);
+            //fprintf(fp, "%f ", PHY_BANDWIDTH);
+            fprintf(fp, "%f ", cur_phy_bw);
             
             //fclose(fp);
             
@@ -2498,7 +2498,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                 fprintf(fp, "%s\n", flag_force_below_resolution);
                 fclose(fp);
                 
-                if(PHY_BANDWIDTH >= arep_bw){
+                if(dl_rate >= arep->bandwidth){
                     if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
                     /*try to switch to highest quality below the current one*/
                     if ((arep->quality_ranking < rep->quality_ranking) || (arep->width < rep->width) || (arep->height < rep->height)) {
@@ -2512,17 +2512,21 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                 }
                     
             }else {
-                float arep_bw_diff = fabs(PHY_BANDWIDTH - arep_bw);
+                float arep_bw_diff = fabs(cur_phy_bw - arep_bw);
                 float newrep_bw_diff = 0;
                 if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
-                if (!new_rep){
-                    new_rep = arep;
-                    newrep_bw_diff = fabs(PHY_BANDWIDTH - ((float)new_rep->bandwidth)/1000000);
-                }else if (go_up_bitrate){
+                
+                if (go_up_bitrate){
+                    
                     fprintf(fp, "%s\n", flag_go_up_bitrate);
                     fclose(fp);
                     
-                    newrep_bw_diff = fabs(PHY_BANDWIDTH - ((float)new_rep->bandwidth)/1000000);
+                    if (!new_rep){
+                        new_rep = arep;
+                    }
+                    
+                    newrep_bw_diff = fabs(cur_phy_bw - ((float)new_rep->bandwidth)/1000000);
+                    
                     if (arep_bw_diff <= newrep_bw_diff){
                         if (new_rep->bandwidth > rep->bandwidth) {
                             nb_inter_rep ++;
@@ -2548,11 +2552,17 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 //                    }
                     
                     // choose the one below dlrate
-                    if (dl_rate >= arep_bw){
+                    float dlrate_float = ((float)dl_rate)/1000000;
+                    float max = (dlrate_float > cur_phy_bw) ? dlrate_float : cur_phy_bw;
+                    if (max >= arep_bw){
+                        if (!new_rep){
+                           new_rep = arep;
+                        }
                         if (arep->bandwidth > new_rep->bandwidth){
                             new_rep = arep;
                         }
                     }
+                    
                 }
             }
             

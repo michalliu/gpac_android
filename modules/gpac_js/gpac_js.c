@@ -441,8 +441,8 @@ case GJS_GPAC_PROP_FPS:
             BASE_TIME_FPS = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
         
             //fp = fopen("/mnt/sdcard/fps_log_orig.txt", "w+");
-            fp = fopen("/mnt/sdcard/fps_log_mod.txt", "w+");
-            fclose(fp);
+            //fp = fopen("/mnt/sdcard/fps_log_mod.txt", "w+");
+            //fclose(fp);
         }
         
         //fp = fopen("/mnt/sdcard/fps_log_orig.txt", "a+");
@@ -1236,8 +1236,8 @@ case GJS_OM_PROP_STATUS:
             BASE_TIME_STATUS = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
             
             //fp = fopen("/mnt/sdcard/status_log_orig.txt", "w+");
-            fp = fopen("/mnt/sdcard/status_log_mod.txt", "w+");
-            fclose(fp);
+            //fp = fopen("/mnt/sdcard/status_log_mod.txt", "w+");
+            //fclose(fp);
         }
         
         //fp = fopen("/mnt/sdcard/status_log_orig.txt", "a+");
@@ -1282,8 +1282,8 @@ case GJS_OM_PROP_BUFFER:
             BASE_TIME_BUFFER = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
             
             //fp = fopen("/mnt/sdcard/buffer_log_orig.txt", "w+");
-            fp = fopen("/mnt/sdcard/buffer_log_mod.txt", "w+");
-            fclose(fp);
+            //fp = fopen("/mnt/sdcard/buffer_log_mod.txt", "w+");
+            //fclose(fp);
         }
         
         //fp = fopen("/mnt/sdcard/buffer_log_orig.txt", "a+");
@@ -1383,8 +1383,8 @@ case GJS_OM_PROP_AVG_RATE:
             BASE_TIME_AVG_BITRATE = t.tv_sec * INT64_C(1000) + t.tv_usec / 1000;
             
             //fp = fopen("/mnt/sdcard/avg_bitrate_log_orig.txt", "w+");
-            fp = fopen("/mnt/sdcard/avg_bitrate_log_mod.txt", "w+");
-            fclose(fp);
+            //fp = fopen("/mnt/sdcard/avg_bitrate_log_mod.txt", "w+");
+            //fclose(fp);
         }
         
         //fp = fopen("/mnt/sdcard/avg_bitrate_log_orig.txt", "a+");
