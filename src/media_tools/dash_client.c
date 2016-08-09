@@ -2479,19 +2479,26 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
             
             // PHY_BANDWIDTH
             float arep_bw = ((float)(arep->bandwidth))/1000000;
+            const char* flag_force_below_resolution = "force below resolution";
+            const char* flag_go_up_bitrate = "go up bitrate";
+            const char* flag_nothing = "nothing";
             
             
             
-            //fprintf(fp, "%f\n", PHY_BANDWIDTH);
-            fprintf(fp, "%f\n", cur_phy_bw);
+            fprintf(fp, "%f ", PHY_BANDWIDTH);
+            //fprintf(fp, "%f\n", cur_phy_bw);
             
-            fclose(fp);
+            //fclose(fp);
             
             
             
             //if(dl_rate >= arep->bandwidth){
-            if(cur_phy_bw >= arep_bw){
-                if (force_below_resolution && !dash->disable_speed_adaptation) {
+            
+            if (force_below_resolution && !dash->disable_speed_adaptation) {
+                fprintf(fp, "%s\n", flag_force_below_resolution);
+                fclose(fp);
+                
+                if(PHY_BANDWIDTH >= arep_bw){
                     if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
                     /*try to switch to highest quality below the current one*/
                     if ((arep->quality_ranking < rep->quality_ranking) || (arep->width < rep->width) || (arep->height < rep->height)) {
@@ -2503,15 +2510,19 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                     rep->playback.prev_max_available_speed = max_available_speed;
                     go_up_bitrate = GF_FALSE;
                 }
-            }
-            
-            if (!force_below_resolution || dash->disable_speed_adaptation){
-                if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
-                if (!new_rep) new_rep = arep;
-                else if (go_up_bitrate){
-                    float arep_bw_diff = fabs(cur_phy_bw - arep_bw);
-                    float newrep_bw_diff = fabs(cur_phy_bw - ((float)new_rep->bandwidth)/1000000);
                     
+            }else {
+                float arep_bw_diff = fabs(PHY_BANDWIDTH - arep_bw);
+                float newrep_bw_diff = 0;
+                if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
+                if (!new_rep){
+                    new_rep = arep;
+                    newrep_bw_diff = fabs(PHY_BANDWIDTH - ((float)new_rep->bandwidth)/1000000);
+                }else if (go_up_bitrate){
+                    fprintf(fp, "%s\n", flag_go_up_bitrate);
+                    fclose(fp);
+                    
+                    newrep_bw_diff = fabs(PHY_BANDWIDTH - ((float)new_rep->bandwidth)/1000000);
                     if (arep_bw_diff <= newrep_bw_diff){
                         if (new_rep->bandwidth > rep->bandwidth) {
                             nb_inter_rep ++;
@@ -2521,12 +2532,18 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                         nb_inter_rep ++;
                     }
                 }else {
-                    float arep_bw_diff = fabs(cur_phy_bw - arep_bw);
-                    float newrep_bw_diff = fabs(cur_phy_bw - ((float)new_rep->bandwidth)/1000000);
+                    fprintf(fp, "%s\n", flag_nothing);
+                    fclose(fp);
+//                    if (PHY_BANDWIDTH >= arep_bw){
+//                        if (arep->bandwidth > new_rep->bandwidth){
+//                            new_rep = arep;
+//                        }
+//                    }
+
+                    newrep_bw_diff = fabs(PHY_BANDWIDTH - ((float)new_rep->bandwidth)/1000000);
                     if (arep_bw_diff <= newrep_bw_diff) {
                         new_rep = arep;
                     }
-                    
                 }
             }
             
