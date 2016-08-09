@@ -2534,15 +2534,24 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                 }else {
                     fprintf(fp, "%s\n", flag_nothing);
                     fclose(fp);
+                    // choose the one below phy bandwidth
 //                    if (PHY_BANDWIDTH >= arep_bw){
 //                        if (arep->bandwidth > new_rep->bandwidth){
 //                            new_rep = arep;
 //                        }
 //                    }
-
-                    newrep_bw_diff = fabs(PHY_BANDWIDTH - ((float)new_rep->bandwidth)/1000000);
-                    if (arep_bw_diff <= newrep_bw_diff) {
-                        new_rep = arep;
+                    
+                    // choose the one closest to current phy bandwidth
+//                    newrep_bw_diff = fabs(PHY_BANDWIDTH - ((float)new_rep->bandwidth)/1000000);
+//                    if (arep_bw_diff <= newrep_bw_diff) {
+//                        new_rep = arep;
+//                    }
+                    
+                    // choose the one below dlrate
+                    if (dl_rate >= arep_bw){
+                        if (arep->bandwidth > new_rep->bandwidth){
+                            new_rep = arep;
+                        }
                     }
                 }
             }
