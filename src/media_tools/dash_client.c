@@ -2394,7 +2394,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
     fprintf(fp, "%f %f ", rep_bw, dl_rate_mod);
     
     
-    //if (rep->bandwidth < PHY_BANDWIDTH){
+    //if (rep_bw < cur_phy_bw){
     if (rep->bandwidth < dl_rate){
         go_up_bitrate = 1;
     }
@@ -2485,13 +2485,13 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
             
             
             
-            //fprintf(fp, "%f ", PHY_BANDWIDTH);
-            fprintf(fp, "%f ", cur_phy_bw);
+            fprintf(fp, "%f ", PHY_BANDWIDTH);
+            //fprintf(fp, "%f ", cur_phy_bw);
             
             //fclose(fp);
             
             //if(dl_rate >= arep->bandwidth){
-            if(cur_phy_bw >= arep_bw){
+            if(PHY_BANDWIDTH >= arep_bw){
                 if (force_below_resolution && !dash->disable_speed_adaptation) {
                     fprintf(fp, "%s\n", flag_force_below_resolution);
                     fclose(fp);
@@ -2528,9 +2528,9 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                         fprintf(fp, "%s\n", flag_nothing);
                         fclose(fp);
                         
-                        float min = (((float)dl_rate)/1000000 < cur_phy_bw) ? ((float)dl_rate)/1000000 : cur_phy_bw;
+                        float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
                         
-                        if(min >= arep_bw){
+                        //if(min >= arep_bw){
                             if (!new_rep){
                                 new_rep = arep;
                             }
@@ -2538,7 +2538,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                             if (arep->bandwidth > new_rep->bandwidth) {
                                 new_rep = arep;
                             }
-                        }
+                        //}
                     }
                 }
             }
