@@ -2509,10 +2509,12 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                     
                 }else {
                     if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
-                    if (!new_rep) new_rep = arep;
-                    else if (go_up_bitrate) {
+                    
+                    if (go_up_bitrate) {
                         fprintf(fp, "%s\n", flag_go_up_bitrate);
                         fclose(fp);
+                        
+                        if (!new_rep) new_rep = arep;
                         
                         if (arep->bandwidth > new_rep->bandwidth) {
                             if (new_rep->bandwidth > rep->bandwidth) {
@@ -2526,9 +2528,16 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                         fprintf(fp, "%s\n", flag_nothing);
                         fclose(fp);
                         
-                        /*try to switch to highest bitrate below available phy bandwidth*/
-                        if (arep->bandwidth > new_rep->bandwidth) {
-                            new_rep = arep;
+                        float min = (((float)dl_rate)/1000000 < cur_phy_bw) ? ((float)dl_rate)/1000000 : cur_phy_bw;
+                        
+                        if(min >= arep_bw){
+                            if (!new_rep){
+                                new_rep = arep;
+                            }
+                            /*try to switch to highest bitrate below available either dlrate or phy bw*/
+                            if (arep->bandwidth > new_rep->bandwidth) {
+                                new_rep = arep;
+                            }
                         }
                     }
                 }
