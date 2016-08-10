@@ -537,9 +537,10 @@ static GF_Config *create_default_config(char *file_path)
 
 	gf_cfg_set_key(cfg, "Compositor", "Raster2D", "GPAC 2D Raster");
 	gf_cfg_set_key(cfg, "Audio", "ForceConfig", "yes");
-	gf_cfg_set_key(cfg, "Audio", "NumBuffers", "2");
+	gf_cfg_set_key(cfg, "Audio", "NumBuffers", "0");
 	gf_cfg_set_key(cfg, "Audio", "TotalDuration", "120");
 	gf_cfg_set_key(cfg, "Audio", "DisableNotification", "no");
+    gf_cfg_set_key(cfg, "Audio", "NoResync", "yes");
 
 	/*Setup font engine to FreeType by default, and locate TrueType font directory on the system*/
 	gf_cfg_set_key(cfg, "FontEngine", "FontReader", "FreeType Font Reader");
@@ -596,7 +597,7 @@ static GF_Config *create_default_config(char *file_path)
 	gf_cfg_set_key(cfg, "Video", "HardwareMemory", "Auto");
 	gf_cfg_set_key(cfg, "Network", "AutoReconfigUDP", "yes");
 	gf_cfg_set_key(cfg, "Network", "UDPTimeout", "10000");
-	gf_cfg_set_key(cfg, "Network", "BufferLength", "3000");
+	gf_cfg_set_key(cfg, "Network", "BufferLength", "30000");
 
 
 	/*locate GUI*/

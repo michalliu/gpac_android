@@ -2467,6 +2467,23 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 
 	if (do_switch) {
         
+        fprintf(fp, "%f ", PHY_BANDWIDTH);
+        
+        const char* flag_force_below_resolution = "force below resolution";
+        const char* flag_go_up_bitrate = "go up bitrate";
+        const char* flag_nothing = "nothing";
+        
+        if (force_below_resolution && !dash->disable_speed_adaptation){
+            fprintf(fp, "%s ", flag_force_below_resolution);
+            go_up_bitrate = GF_FALSE;
+        }else {
+            if (go_up_bitrate){
+                fprintf(fp, "%s ", flag_go_up_bitrate);
+            }else {
+                fprintf(fp, "%s ", flag_nothing);
+            }
+        }
+        
 		for (k=0; k<gf_list_count(group->adaptation_set->representations) && do_switch; k++) {
 			GF_MPD_Representation *arep = gf_list_get(group->adaptation_set->representations, k);
 			if (!arep->playback.prev_max_available_speed)
@@ -2479,23 +2496,11 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
             
             // PHY_BANDWIDTH
             float arep_bw = ((float)(arep->bandwidth))/1000000;
-            const char* flag_force_below_resolution = "force below resolution";
-            const char* flag_go_up_bitrate = "go up bitrate";
-            const char* flag_nothing = "nothing";
-            
-            
-            
-            fprintf(fp, "%f ", PHY_BANDWIDTH);
-            //fprintf(fp, "%f ", cur_phy_bw);
-            
-            //fclose(fp);
+
             
             //if(dl_rate >= arep->bandwidth){
             if(PHY_BANDWIDTH >= arep_bw){
                 if (force_below_resolution && !dash->disable_speed_adaptation) {
-                    fprintf(fp, "%s\n", flag_force_below_resolution);
-                    fclose(fp);
-                    
                     if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
                     /*try to switch to highest quality below the current one*/
                     if ((arep->quality_ranking < rep->quality_ranking) || (arep->width < rep->width) || (arep->height < rep->height)) {
@@ -2511,9 +2516,6 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                     if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Bitrate adaptation\n"));
                     
                     if (go_up_bitrate) {
-                        fprintf(fp, "%s\n", flag_go_up_bitrate);
-                        fclose(fp);
-                        
                         if (!new_rep) new_rep = arep;
                         
                         if (arep->bandwidth > new_rep->bandwidth) {
@@ -2525,10 +2527,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                             nb_inter_rep ++;
                         }
                     }else {
-                        fprintf(fp, "%s\n", flag_nothing);
-                        fclose(fp);
-                        
-                        float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
+                        //float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
                         
                         //if(min >= arep_bw){
                             if (!new_rep){
@@ -2668,6 +2667,16 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 			GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH] AS#%d no rep found better matching requested bandwidth %d - not switching !\n", 1+gf_list_find(group->period->adaptation_sets, group->adaptation_set), dl_rate));
 			do_switch=GF_FALSE;
 		}
+        
+        if (!new_rep){
+            float newrep_bw = 0;
+            fprintf(fp, "%f\n", rep_bw);
+            fclose(fp);
+        }else {
+            float newrep_bw = ((float)(new_rep->bandwidth))/1000000;
+            fprintf(fp, "%f\n", newrep_bw);
+            fclose(fp);
+        }
 	}
 
 //	if (do_switch) {
