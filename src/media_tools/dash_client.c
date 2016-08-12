@@ -2518,18 +2518,25 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                     if (go_up_bitrate) {
                         if (!new_rep) new_rep = arep;
                         
-                        if (arep->bandwidth > new_rep->bandwidth) {
-                            if (new_rep->bandwidth > rep->bandwidth) {
-                                nb_inter_rep ++;
-                            }
+                        /*try to switch to lowest bitrate above our current rep*/
+                        if (new_rep->bandwidth<=rep->bandwidth) {
                             new_rep = arep;
-                        } else if (arep->bandwidth > rep->bandwidth) {
-                            nb_inter_rep ++;
+                        } else if ( (arep->bandwidth < new_rep->bandwidth) && (arep->bandwidth > rep->bandwidth)) {
+                            new_rep = arep;
                         }
+//                        
+//                        if (arep->bandwidth > new_rep->bandwidth) {
+//                            if (new_rep->bandwidth > rep->bandwidth) {
+//                                nb_inter_rep ++;
+//                            }
+//                            new_rep = arep;
+//                        } else if (arep->bandwidth > rep->bandwidth) {
+//                            nb_inter_rep ++;
+//                        }
                     }else {
-                        //float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
+                        float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
                         
-                        //if(min >= arep_bw){
+                        if(min >= arep_bw){
                             if (!new_rep){
                                 new_rep = arep;
                             }
@@ -2537,7 +2544,7 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                             if (arep->bandwidth > new_rep->bandwidth) {
                                 new_rep = arep;
                             }
-                        //}
+                        }
                     }
                 }
             }
