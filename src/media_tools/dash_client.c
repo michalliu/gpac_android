@@ -2317,7 +2317,8 @@ static void dash_store_stats(GF_DashClient *dash, GF_DASH_Group *group, GF_DASHF
 void predict_bandwidth(float bw){
     //PHY_BANDWIDTH = bw * 1000000;
 
-    PHY_BANDWIDTH = bw;
+    // PHY_BANDWIDTH = bw;
+    PHY_BANDWIDTH = 0.8*PHY_BANDWIDTH + 0.2*bw;
 }
 
 
