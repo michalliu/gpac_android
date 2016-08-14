@@ -2317,8 +2317,16 @@ static void dash_store_stats(GF_DashClient *dash, GF_DASH_Group *group, GF_DASHF
 void predict_bandwidth(float bw){
     //PHY_BANDWIDTH = bw * 1000000;
 
-    PHY_BANDWIDTH = bw;
+    /* Inst Bandwidth */
+    // PHY_BANDWIDTH = bw;
+    
+    /* Moving average */
     // PHY_BANDWIDTH = 0.8*PHY_BANDWIDTH + 0.2*bw;
+
+
+    /* Maximum Bandwidth */
+    if (PHY_BANDWIDTH < bw)
+    	PHY_BANDWIDTH = bw;
 }
 
 
@@ -2724,6 +2732,9 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 		GF_LOG(GF_LOG_ERROR, GF_LOG_DASH, ("[DASH] Speed %f is too fast to play - speed down \n", dash->speed));
 		/*FIXME: should do something here*/
 	}
+
+	/* Reset PHY_BANDWIDTH */
+	PHY_BANDWIDTH = 0;
 }
 
 static GF_Err gf_dash_download_init_segment(GF_DashClient *dash, GF_DASH_Group *group)
@@ -4891,6 +4902,7 @@ static void dash_global_rate_adaptation(GF_DashClient *dash)
 	u32 q_idx, nb_qualities = 0;
 	u32 i, count = gf_list_count(dash->groups), local_files = 0;
 
+
 	//initialize min/max bandwidth
 	min_bandwidth = 0;
 	max_level = 0;
@@ -4950,7 +4962,13 @@ static void dash_global_rate_adaptation(GF_DashClient *dash)
 	if (!dash->tile_rate_decrease) {
 	}
 	/*automatic rate alloc*/
+
 	else if (dash->tile_rate_decrease==100) {
+		/*
+		 *Yuanjie: This is how GPAC estimates the bandwidth
+		 * The final bandwidth used in do_rate_adaptation would be the group->target_new_rep->bandwidth
+		 * group->target_new_rep would be updated to probe the next-level bitrate
+		 */
 		//for each quality level (starting from highest priority), increase the bitrate if possible
 		for (q_idx=0; q_idx < max_level; q_idx++) {
 			Bool test_pass = GF_TRUE;
@@ -5000,7 +5018,8 @@ static void dash_global_rate_adaptation(GF_DashClient *dash)
 				test_pass = !test_pass;
 			}
 		}
-		GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH] Rate Adaptation - download rate %d kbps - %d quality levels (cumulated representations rate %d kbps)\n", 8*total_rate/1000, max_level, min_bandwidth/1000));
+		GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH] Rate Adaptation (force_rep_idx) - download rate %d kbps - %d quality levels (cumulated representations rate %d kbps) count=%d\n", 
+			8*total_rate/1000, max_level, min_bandwidth/1000,count));
 		for (q_idx=0; q_idx<max_level; q_idx++) {
 			GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH]\tLevel #%d - %d Adaptation Sets for a total %d kbps allocated\n", q_idx+1, groups_per_quality[q_idx], bandwidths[q_idx]/1000 ));
 		}
@@ -5018,8 +5037,10 @@ static void dash_global_rate_adaptation(GF_DashClient *dash)
 				bandwidths[i] = remain * dash->tile_rate_decrease/100;
 				rate += bandwidths[i];
 			}
-		}
+			GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH] Rate Adaptation - rate=%dkbps bandwidth[i]=%dkbps total_rate=%dkbps count=%d\n"
+				, 8*rate/1000, 8*bandwidths[i]/1000, 8*total_rate/1000,count)); 
 
+		}
 		GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH] Rate Adaptation - download rate %d kbps - %d quality levels (cumulated rate %d kbps)\n", 8*total_rate/1000, max_level, 8*min_bandwidth/1000));
 		for (q_idx=0; q_idx<max_level; q_idx++) {
 			GF_LOG(GF_LOG_INFO, GF_LOG_DASH, ("[DASH]\tLevel #%d - %d Adaptation Sets for a total %d kbps allocated\n", q_idx+1, groups_per_quality[q_idx], 8*bandwidths[q_idx]/1000 ));

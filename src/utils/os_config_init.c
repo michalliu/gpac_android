@@ -599,6 +599,9 @@ static GF_Config *create_default_config(char *file_path)
 	gf_cfg_set_key(cfg, "Network", "UDPTimeout", "10000");
 	gf_cfg_set_key(cfg, "Network", "BufferLength", "3000");
 
+	gf_cfg_set_key(cfg, "DASH", "ThreadedDownload", "yes");
+    gf_cfg_set_key(cfg, "DASH", "LowLatency", "always");
+
 
 	/*locate GUI*/
 	if ( get_default_install_path(szPath, GF_PATH_GUI) ) {
