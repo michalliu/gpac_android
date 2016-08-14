@@ -1,1 +1,1 @@
-#define GPAC_GIT_REVISION	"UNKNOWN-dash-algorithm"
+#define GPAC_GIT_REVISION	"UNKNOWN-modified-dash"
