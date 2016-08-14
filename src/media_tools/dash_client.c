@@ -2317,8 +2317,8 @@ static void dash_store_stats(GF_DashClient *dash, GF_DASH_Group *group, GF_DASHF
 void predict_bandwidth(float bw){
     //PHY_BANDWIDTH = bw * 1000000;
 
-    // PHY_BANDWIDTH = bw;
-    PHY_BANDWIDTH = 0.8*PHY_BANDWIDTH + 0.2*bw;
+    PHY_BANDWIDTH = bw;
+    // PHY_BANDWIDTH = 0.8*PHY_BANDWIDTH + 0.2*bw;
 }
 
 
@@ -2515,22 +2515,25 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                         if (!new_rep) new_rep = arep;
                         
                         /*try to switch to lowest bitrate above our current rep*/
-                        if (new_rep->bandwidth<=rep->bandwidth) {
-                            new_rep = arep;
-                        } else if ( (arep->bandwidth < new_rep->bandwidth) && (arep->bandwidth > rep->bandwidth)) {
-                            new_rep = arep;
-                        }
-//                        
-//                        if (arep->bandwidth > new_rep->bandwidth) {
-//                            if (new_rep->bandwidth > rep->bandwidth) {
-//                                nb_inter_rep ++;
-//                            }
-//                            new_rep = arep;
-//                        } else if (arep->bandwidth > rep->bandwidth) {
-//                            nb_inter_rep ++;
-//                        }
+                        // if (new_rep->bandwidth<=rep->bandwidth) {
+                        //     new_rep = arep;
+                        // } else if ( (arep->bandwidth < new_rep->bandwidth) && (arep->bandwidth > rep->bandwidth)) {
+                        //     new_rep = arep;
+                        // }
+
+                        /*try to switch to highest bitrate below available download rate*/
+                       
+                       if (arep->bandwidth > new_rep->bandwidth) {
+                           if (new_rep->bandwidth > rep->bandwidth) {
+                               nb_inter_rep ++;
+                           }
+                           new_rep = arep;
+                       } else if (arep->bandwidth > rep->bandwidth) {
+                           nb_inter_rep ++;
+                       }
                     }else {
-                        float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
+                        // float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
+                        float min = PHY_BANDWIDTH;
                         
                         if(min >= arep_bw){
                             if (!new_rep){
