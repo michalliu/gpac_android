@@ -2383,15 +2383,10 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
 	int64_t cur_time_rlt = cur_time_abs - BASE_TIME;
 
 	float time = (float) cur_time_rlt/1000;
-
-	fprintf(fp, "%.3f ", time);
-	
-	
-    
-    float rep_bw = ((float)(rep->bandwidth))/1000000;
+	float rep_bw = ((float)(rep->bandwidth))/1000000;
     float dl_rate_mod = (float)dl_rate/1000000;
-    
-    fprintf(fp, "%f %f ", rep_bw, dl_rate_mod);
+
+    fprintf(fp, "%.3f %f %f ", time, rep_bw, dl_rate_mod);
     
     
     //if (rep_bw < cur_phy_bw){
