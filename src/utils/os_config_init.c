@@ -600,7 +600,7 @@ static GF_Config *create_default_config(char *file_path)
 	gf_cfg_set_key(cfg, "Network", "BufferLength", "3000");
 
 	gf_cfg_set_key(cfg, "DASH", "ThreadedDownload", "yes");
-    gf_cfg_set_key(cfg, "DASH", "LowLatency", "always");
+    // gf_cfg_set_key(cfg, "DASH", "LowLatency", "always");
 
 
 	/*locate GUI*/

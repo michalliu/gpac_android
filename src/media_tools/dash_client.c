@@ -2318,15 +2318,15 @@ void predict_bandwidth(float bw){
     //PHY_BANDWIDTH = bw * 1000000;
 
     /* Inst Bandwidth */
-    // PHY_BANDWIDTH = bw;
+    PHY_BANDWIDTH = bw;
     
     /* Moving average */
     // PHY_BANDWIDTH = 0.8*PHY_BANDWIDTH + 0.2*bw;
 
 
     /* Maximum Bandwidth */
-    if (PHY_BANDWIDTH < bw)
-    	PHY_BANDWIDTH = bw;
+    // if (PHY_BANDWIDTH < bw)
+    // 	PHY_BANDWIDTH = bw;
 }
 
 
@@ -2382,8 +2382,8 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
     
     
 	// print timestamp, used bandwidth and available bandwidth
-    //fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "a+");
-	fp = fopen("/mnt/sdcard/dlrate_bw_log_mod.txt", "a+");
+    //fp = fopen("/mnt/sdcard/dlrate_bw_log_orig.txt", "a+");	// orig
+	fp = fopen("/mnt/sdcard/dlrate_bw_log_mod.txt", "a+");	// mod
 	
 	// compute time
 	struct timeval t2;
@@ -2398,8 +2398,8 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
     fprintf(fp, "%.3f %f %f ", time, rep_bw, dl_rate_mod);
     
     
-    //if (rep_bw < cur_phy_bw){
-    if (rep->bandwidth < dl_rate){
+    if (rep_bw < cur_phy_bw){	// mod
+    // if (rep->bandwidth < dl_rate){	// orig
         go_up_bitrate = 1;
     }
     
@@ -2502,8 +2502,8 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
             float arep_bw = ((float)(arep->bandwidth))/1000000;
 
             
-            //if(dl_rate >= arep->bandwidth){
-            if(PHY_BANDWIDTH >= arep_bw){
+            //if(dl_rate >= arep->bandwidth){	//orig
+            if(PHY_BANDWIDTH >= arep_bw){	//mod
                 if (force_below_resolution && !dash->disable_speed_adaptation) {
                     if (!k) GF_LOG(GF_LOG_DEBUG, GF_LOG_DASH, ("[DASH] Speed adaptation\n"));
                     /*try to switch to highest quality below the current one*/
