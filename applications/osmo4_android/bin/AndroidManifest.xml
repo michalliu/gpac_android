@@ -114,7 +114,7 @@
         
         <receiver android:name=".MobilinsightReceiver" >
             <intent-filter >
-                <action android:name="MobileInsight.LtePhyAnalyzer.LTE_BW">
+                <action android:name="MobileInsight.LtePhyAnalyzer.LTE_DL_BW">
                 </action>
             </intent-filter>
         </receiver>
