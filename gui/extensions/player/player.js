@@ -85,7 +85,8 @@ extension = {
 			return false;
 		case GF_EVENT_QUALITY_SWITCHED:
 			if (this.stats_wnd) {
-				this.stats_wnd.quality_changed();
+                if(getClass.call(this.stats_wnd.quality_changed) == '[object Function]')
+				    this.stats_wnd.quality_changed();
 			}
 			return true;
 		case GF_EVENT_TIMESHIFT_UPDATE:
