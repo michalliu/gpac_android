@@ -26,7 +26,10 @@ extension.view_stats = function () {
     wnd.area.spread_v = true;
 
     var root_odm = this.root_odm;
-    var nb_http = root_odm.nb_http;
+    var nb_http = null;
+    if(root_odm)
+        nb_http = root_odm.nb_http;
+    // var nb_http = root_odm.nb_http;
     var nb_buffering = 0;
     var nb_ntp_diff = 0;
     var srd_obj = null;
@@ -317,8 +320,8 @@ extension.view_stats = function () {
                 this.wnd.close_all();
             }
         }
-
-        nb_http += m.nb_http;
+        if(nb_http)
+            nb_http += m.nb_http;
 
         gw_new_separator(wnd.area);
     }

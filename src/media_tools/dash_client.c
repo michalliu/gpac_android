@@ -2540,8 +2540,8 @@ static void dash_do_rate_adaptation(GF_DashClient *dash, GF_DASH_Group *group)
                            nb_inter_rep ++;
                        }
                     }else {
-                        // float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
-                        float min = PHY_BANDWIDTH;
+                        float min = (((float)dl_rate)/1000000 < PHY_BANDWIDTH) ? ((float)dl_rate)/1000000 : PHY_BANDWIDTH;
+                        // float min = PHY_BANDWIDTH;
                         
                         if(min >= arep_bw){
                             if (!new_rep){

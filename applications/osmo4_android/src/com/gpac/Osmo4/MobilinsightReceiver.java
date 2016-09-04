@@ -23,8 +23,8 @@ public class MobilinsightReceiver extends BroadcastReceiver {
 		float phy_bandwidth = Float.parseFloat(phy_bandwidth_char);
 		float pred_phy_bandwidth = Float.parseFloat(pred_phy_bandwidth_char);
 
-		// setPHYBandwidth(phy_bandwidth);	
-		setPHYBandwidth(pred_phy_bandwidth);	// predicted bandwidth
+		setPHYBandwidth(phy_bandwidth);	
+		// setPHYBandwidth(pred_phy_bandwidth);	// predicted bandwidth 
 	}
 	
 	public native void setPHYBandwidth(float bw);
